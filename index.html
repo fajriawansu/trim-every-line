@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      function myFunction() {
+        var x = document.getElementById("input-form").value;
+        const array = x?.split(/\n/);
+        const result = array.map((el) => el.trim());
+        const joined = result.join("\n");
+        console.log(joined);
+        document.getElementById("result").value = joined;
+      }
+
+      function copyFunction() {
+        // Get the text field
+        var copyText = document.getElementById("result");
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+
+        // // Alert the copied text
+        // alert("Copied the text: " + copyText.value);
+      }
+    </script>
+    <div style="display: flex; gap: 100px; align-items: center">
+      <h1>Remaining Space for Each Line <b>Remover</b></h1>
+      <button
+        style="max-height: 48px; font-size: larger"
+        onclick="myFunction()"
+      >
+        Submit
+      </button>
+    </div>
+    <div style="display: flex; gap: 12px">
+      <textarea cols="100" rows="40" id="input-form"> </textarea>
+      <div style="margin-top: -24px; font-size: 20px">
+        <div><button onclick="copyFunction()">Copy Result</button></div>
+
+        <textarea cols="100" rows="40" id="result" disabled> </textarea>
+      </div>
+    </div>
+  </body>
+</html>
