@@ -2,13 +2,29 @@
 <html>
   <body>
     <script>
-      function myFunction() {
+      function myFunction(isSubtitle) {
         var x = document.getElementById("input-form").value;
         const array = x?.split(/\n/);
         const result = array.map((el) => el.trim());
-        const joined = result.join("\n");
-        console.log(joined);
-        document.getElementById("result").value = joined;
+        const result2 = [...result];
+        const filtered = [...result].reduce(
+          (total, currentValue, currentIdx, arr) => {
+            return total.concat(
+              currentIdx > 0 &&
+                currentIdx < arr.length - 1 &&
+                !arr[currentIdx - 1].includes("000") &&
+                arr[currentIdx + 1] === ""
+                ? " "
+                : "\n",
+              currentValue
+            );
+          },
+          ""
+        );
+        const joined = [...result2].join("\n");
+        document.getElementById("result").value = isSubtitle
+          ? filtered
+          : joined;
       }
 
       function copyFunction() {
@@ -26,14 +42,29 @@
         // alert("Copied the text: " + copyText.value);
       }
     </script>
-    <div style="display: flex; gap: 100px; align-items: center">
+    <div
+      style="
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+      "
+    >
       <h1>Remaining Space for Each Line <b>Remover</b></h1>
-      <button
-        style="max-height: 48px; font-size: larger"
-        onclick="myFunction()"
-      >
-        Submit
-      </button>
+      <div>
+        <button
+          style="max-height: 48px; font-size: larger"
+          onclick="myFunction(false)"
+        >
+          Generate
+        </button>
+        <button
+          style="max-height: 48px; font-size: larger"
+          onclick="myFunction(true)"
+        >
+          Generate (for subtitle)
+        </button>
+      </div>
     </div>
     <div style="display: flex; gap: 12px">
       <textarea cols="100" rows="40" id="input-form"> </textarea>
