@@ -13,6 +13,7 @@
               currentIdx > 0 &&
                 currentIdx < arr.length - 1 &&
                 !arr[currentIdx - 1].includes("000") &&
+                !arr[currentIdx - 1].includes("500") &&
                 arr[currentIdx + 1] === ""
                 ? " "
                 : "\n",
